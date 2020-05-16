@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewData["Title"] = "DemoHinhHoc";
+
+    // var HCN = new HinhChuNhat();
+
+    // HCN.Dai = 15;
+    // HCN.Rong = 20;
+
+    var DSHH = new List<HinhHoc>();
+    DSHH.Add(new HinhChuNhat { Dai = 5, Rong = 10 });
+    DSHH.Add(new HinhChuNhat { Dai = 7, Rong = 9 });
+
+
+}
+
+
+<h1>DemoHinhHoc</h1>
+<h2>@HinhHoc.RandomKey()</h2>
+
+
+@foreach (var item in DSHH)
+{
+    item.TinhDienTichChuVi();
+    <div>@item</div>
+    <div>@item.ToString()</div>
+
+}

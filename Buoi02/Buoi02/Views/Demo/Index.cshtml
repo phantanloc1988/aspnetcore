@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    HangHoa AB = new HangHoa();
+
+    AB.TenHangHoa = "Air Blade";
+    AB.DonGia = 40000000;
+    AB.MaHangHoa = 1;
+
+    var Dream = new HangHoa()
+    {
+        TenHangHoa = "Dream",
+        MaHangHoa = 2,
+        DonGia = 30000000,
+    };
+
+}
+
+
+<h1 style="color: darkslateblue; background-color:moccasin; width:500px">Danh Sách Hàng Hóa</h1>
+<div>@AB.TenHangHoa - @AB.DonGia</div>
+<div>@Dream.TenHangHoa - @Dream.DonGia</div>
+
+
