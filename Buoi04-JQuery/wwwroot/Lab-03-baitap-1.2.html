@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="lib/jquery/dist/jquery.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $('#txtFrom').change(function () {
+
+                var giatri = $('#txtFrom').val();
+
+
+                $('button').click(function (e) {
+                    e.preventDefault();//ngăn sự kiện defaut của submit
+                    $('#txtTo').val(giatri);
+                    $('#txtTo').css('background-color', 'yellow');
+                })
+            });
+        });
+    </script>
+
+</head>
+<body>
+    <form action="Demo.html">
+
+        <div>From<input type="text" id="txtFrom" value="" /><br /></div><br />
+        <button type="button">OK</button>
+        <button type="submit">Submit</button>
+        <br /><br />
+        <div>To<input type="text" id="txtTo" value="" /></div>
+
+    </form>
+
+
+</body>
+</html>

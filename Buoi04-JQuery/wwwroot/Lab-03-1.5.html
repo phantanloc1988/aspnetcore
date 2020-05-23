@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="lib/jquery/dist/jquery.js"></script>
+    <style>
+        table {
+            margin: auto;
+        }
+
+        .loi {
+            color: red;
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+
+    <table>
+        <tr>
+            <td>User</td>
+            <td><input type="text" value="" id="txtUser" placeholder="Nhập User" /></td>
+        </tr>
+        <tr>
+            <td>Pass</td>
+            <td><input type="password" value="" id="txtPass" placeholder="Nhập Pass" /></td>
+        </tr>
+
+        <tr>
+
+            <td colspan="2"><button id="btn">Login</button></td>
+        </tr>
+
+    </table>
+    <div id="thongbao" style="text-align:center"></div>
+
+    <script>
+        $(function () {
+
+            function kiemTraRong(obj) {
+                if (obj.val().length == 0) {
+                    obj.addClass('loi');
+                    return true;
+                }
+                obj.removeClass('loi');
+                return false;
+            }
+
+            //'let' tao bien cuc bo
+
+            let user = $('#txtUser');
+            let pass = $('#txtPass');
+
+            $('#btn').click(function () {
+
+
+                if ($(this).html() == 'logout') {
+                    $(this).html('login');
+                    user.next().remove();
+                    user.show();
+                    user.val('');
+                    pass.next().remove();
+                    pass.show();
+                    pass.val('');
+                    $('#thongbaoloi').html('');
+                    return true
+                }
+
+                if (kiemTraRong(user) || kiemTraRong(pass)) {
+                    return false;
+
+
+                }
+                if (user.val() == 'admin' && pass.val() == '123') {
+                    $(this).html('logout');
+                    $('#thongbao').html('Đăng Nhập Thành Công');
+
+                    user.hide();
+                    pass.hide();
+
+                    user.after('<span>' + user.val() + '</span>');     // tạo thẻ span để logout dùng remove
+
+
+                }
+                else {
+                    $('#thongbao').html('Đăng Nhập Thất Bại');
+                }
+            });
+
+            $('#btn:contains(logout)').click();
+        });
+    </script>
+
+</body>
+</html>
