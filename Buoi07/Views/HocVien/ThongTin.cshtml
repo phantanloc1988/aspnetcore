@@ -1,0 +1,53 @@
+﻿@model Buoi07.Models.HocVien
+
+@{
+    ViewData["Title"] = "ThongTin";
+}
+
+<h1>ThongTin</h1>
+
+<h4>HocVien</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="ThongTin">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="MaSo" class="control-label"></label>
+                <input asp-for="MaSo" class="form-control" />
+                <span asp-validation-for="MaSo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HoTen" class="control-label"></label>
+                <input asp-for="HoTen" class="form-control" />
+                <span asp-validation-for="HoTen" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SoDT" class="control-label"></label>
+                <input asp-for="SoDT" class="form-control" />
+                <span asp-validation-for="SoDT" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DiemTb" class="control-label"></label>
+                <input asp-for="DiemTb" class="form-control" />
+                <span asp-validation-for="DiemTb" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="GioiTinh" /> @Html.DisplayNameFor(model => model.GioiTinh)
+                </label>
+            </div>
+            <div class="form-group">
+                <input name="ghi" type="submit" value="Ghi Text" class="btn btn-primary" />
+                <input name="ghi" type="submit" value="Ghi JSON" class="btn btn-primary" /><br />
+                <a asp-action="DocText" class="btn btn-info">Đọc File Text</a>
+                <a asp-action="DocJSON" class="btn btn-info">Đọc File JSON</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

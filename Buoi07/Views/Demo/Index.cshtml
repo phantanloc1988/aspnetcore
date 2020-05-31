@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Upload Files</h1> @*khi Upload thì Files lưu tạm trên serve phải thao tác Move về Project*@
+
+<form enctype="multipart/form-data" action="/Demo/SingleUpload" method="post">
+    <h3 class="bg-success w-50">Upload Single File</h3>
+    <input type="file" name="MyFile1" value="" />
+    <button>Upload</button>
+</form>
+<br />
+<br />
+<br />
+<form enctype="multipart/form-data" asp-action="MultipleUpload" method="post">
+    <h3 class="bg-primary w-50">Upload Multiple File</h3>
+    <input type="file" name="MyFile2" value="" multiple/>
+    <button>Upload</button>
+</form>
