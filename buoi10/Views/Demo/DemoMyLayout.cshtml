@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+    <h1>Demo MyLayout</h1>
+
+@section ABC{ 
+
+    <div class="list-group">
+        <a href="#" class="list-group-item">Bia</a>
+        <a href="#" class="list-group-item">Coca</a>
+    </div>
+}
+
+@{ 
+    var danhMuc = new DanhMuc
+    {
+        TenDanhMuc = "Cafe",
+        SanPham = new string[] { "Highland", "Phố", "Trung nguyên" }
+    };
+}
+
+@await Html.PartialAsync("_DanhMuc", danhMuc); //(tên partial View, truyền data nếu có)

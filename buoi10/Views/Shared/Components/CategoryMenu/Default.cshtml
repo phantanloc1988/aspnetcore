@@ -1,0 +1,11 @@
+﻿@model IEnumerable< buoi10.Models.Product>
+
+<div class="card">
+    
+    <div class="card-body">
+        @foreach (var item in Model)
+        {
+            <a href="#" class="list-group-item">@item.Name</a>
+        }
+    </div>
+</div>

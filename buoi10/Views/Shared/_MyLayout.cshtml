@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+
+    <link href="~/css/MyLayout.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <header class="bg-danger">
+            #HEADER
+        </header>
+
+        <nav></nav>
+
+        <div class="row">
+            <aside class="col-3" id="leftmenu">
+                Left Menu
+                @RenderSection("ABC", required: false)
+
+                @await Component.InvokeAsync("CategoryMenu")
+
+                @*@{
+                    var danhMucDT = new DanhMuc
+                    {
+                        TenDanhMuc = "Điện Thoại",
+                        SanPham = new string[] { "iphone", "SamSung", "nokia" }
+                    };
+                }
+                @await Html.PartialAsync("_DanhMuc", danhMucDT);*@ //(tên partial View, truyền data nếu có)
+            </aside>
+
+            <div class="col-9" id="mycontent">
+                @RenderBody()
+            </div>
+        </div>
+
+
+        <footer class="text-center text-susccess">
+            Bản Quyền Thuộc Về ABC &reg; 2020
+        </footer>
+    </div>
+
+
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+</body>
+</html>

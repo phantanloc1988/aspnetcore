@@ -1,0 +1,13 @@
+﻿@model buoi10.Models.DanhMuc
+
+<div class="card">
+    <div class="card-header bg-success">
+        @Model.TenDanhMuc
+    </div>
+    <div class="card-body">
+        @foreach (var item in Model.SanPham)
+        {
+            <a href="#" class="list-group-item">@item</a>
+        }
+    </div>
+</div>
