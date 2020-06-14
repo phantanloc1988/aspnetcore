@@ -5,28 +5,21 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using buoi10.Models;
-using buoi10.Models.Services.Interfaces;
+using buoi11.Models;
 
-namespace buoi10.Controllers
+namespace buoi11.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
 
-        private ISingletonService _services5;
-
-
-        public HomeController(ILogger<HomeController> logger, ISingletonService s5)
+        public HomeController(ILogger<HomeController> logger)
         {
-            _services5 = s5;
             _logger = logger;
-
         }
 
         public IActionResult Index()
         {
-            ViewBag.Service5= _services5.GetID();
             return View();
         }
 
