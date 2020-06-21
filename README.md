@@ -10,3 +10,8 @@ SQL
 - GetUTCDate() ??ng b? gi? theo múi này
 - Ví d? truy v?n
 - Lab6: View,Store Procedure,function, Trigger
+
+Buoi 13
+- Ado.Net (Lab-13)
+- t?o SQL ConnectionStrings trong appsetting.json -> t?o model -> map section SQLConfig qua l?p SQLConfig (Trong StarUp) -> DI Trong DemoController
+- DataProvider.cs
