@@ -1,6 +1,11 @@
 # aspnetcore
 
-Bu?i 12
+******Bu?i 7***********
+-Up load và save File
+
+
+
+******Bu?i 12**********
 
 SQL
 - Lab2, lab3 - bang NhanVien
