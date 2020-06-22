@@ -17,23 +17,10 @@ namespace buoi13.Controllers
     {
         private readonly SQLConfig _sqlConfig;
 
-        public DemoController(IOptions<SQLConfig> sqlCongfig)
+        public DemoController(IOptions<SQLConfig> sqlConfig)
         {
-            _sqlConfig = sqlCongfig.Value;
+            _sqlConfig = sqlConfig.Value;
         }
-
-        public IActionResult DemoInsert()
-        {
-            SqlConnection connection = new SqlConnection(_sqlConfig.ConnectionString);
-
-            string sqlInsert = "insert into Loai(TenLoai) values(N'Bia - nước ngọt')";
-            SqlCommand command = new SqlCommand(sqlInsert, connection);
-            command.Connection.Open();
-            int result = command.ExecuteNonQuery();
-            command.Connection.Close();
-            return Content($"{result} effected row(s).");
-        }
-
 
         public IActionResult Demo()
         {
@@ -47,14 +34,40 @@ namespace buoi13.Controllers
             return View(dtHangHoa);
         }
 
-        public IActionResult Index()
+        public IActionResult DemoInsert()
+        {
+            //tạo đối tượng kết nối
+            SqlConnection connection = new SqlConnection(_sqlConfig.ConnectionString);
+
+            string sqlInsert = "insert into Loai(TenLoai) values(N'Bia - nước ngọt')";
+            SqlCommand command = new SqlCommand(sqlInsert, connection);
+            command.Connection.Open();
+            int result = command.ExecuteNonQuery();
+            command.Connection.Close();
+            return Content($"{result} effected row(s).");
+        }
+
+
+        public IActionResult DemoDelete()
+        {
+            SqlConnection connection = new SqlConnection(_sqlConfig.ConnectionString);
+
+            string sql = "delete from HangHoa Where MaHH='ABC'";
+            SqlCommand command = new SqlCommand(sql, connection);
+            command.Connection.Open();
+            int ketqua = command.ExecuteNonQuery();
+            command.Connection.Close();
+            return Content($"{ketqua} hàng bị xóa");
+        }
+
+        public IActionResult Index() //Lấy dữ liệu trực tiếp từ Json không qua model
         {
             var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("myAppSetting.json");
             var congfig = builder.Build();
             var ngaykg = congfig["NgayKhaiGiang"];
             var tentt = congfig["TrungTam:Ten"]; //nhiều lớp dùng ":"
             var conhd = congfig["TrungTam:ConHoatDong"];
-            var myDBCon = congfig.GetConnectionString("MyDB"); //kết nối database
+            var myDBCon = congfig.GetConnectionString("MyDB"); //Chuỗi kết nối database
 
             // cách lấy khác
             var trungtam = congfig.GetSection("TrungTam");
@@ -66,5 +79,7 @@ namespace buoi13.Controllers
 
             return Content(ketqua);
         }
+
+       
     }
 }

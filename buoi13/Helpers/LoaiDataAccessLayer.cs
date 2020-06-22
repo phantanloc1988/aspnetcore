@@ -17,7 +17,7 @@ namespace buoi13.Helpers
             List<Loai> dsLoai = new List<Loai>();
 
             var result = DataProvider.SelectData("spLayTatCaLoai", CommandType.StoredProcedure, null);
-
+            
             if (result.Rows.Count > 0)
             {
                 foreach (DataRow row in result.Rows)
