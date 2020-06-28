@@ -1,0 +1,48 @@
+﻿body {
+}
+
+.hh-box {
+    margin:0 0 20px 20px;
+    width: 220px;
+    height: 300px;
+    border: 1px solid black;
+    position: relative;
+    display:inline-block;
+}
+
+    .hh-box:hover {
+        
+        border-radius: 10px;
+        box-shadow: 0 0 10px red;
+    }
+
+.hh-img {
+
+    width: 170px;
+    height: 250px;
+}
+
+.hh-pro {
+    width: 50px;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.hh-fa {
+    position: absolute;
+    right: 5%;
+    top: 60%;
+}
+
+.hh-letter {
+    position: absolute;
+    right: 5%;
+    top: 70%;
+}
+
+.hh-basket {
+    position: absolute;
+    right: 5%;
+    top: 80%;
+}

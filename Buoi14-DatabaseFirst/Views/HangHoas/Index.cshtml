@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Buoi14_DatabaseFirst.Models.MyModels.TimKiemHangHoa>
+@{
+    ViewData["Title"] = "Index";
+}
+<link href="~/css/HangHoa.css" rel="stylesheet" />
+
+<div class="container">
+   
+    <div>
+        <select name="Page" asp-items="@ViewBag.Pages">
+          
+        </select>
+    </div>
+    @*<form asp-action="Index">
+        <select name="Page">
+        </select>
+        <button></button>
+    </form>*@
+    @foreach (var hh in Model)
+    {
+        <div class="hh-box">
+            <img class="hh-img" src="~/Hinh/HangHoa/@hh.Hinh" />
+            <h2>@hh.TenHh</h2>
+            <h3>@hh.GiaBan.ToString("#,##0")đ</h3>
+        </div>
+    }
+</div>
+

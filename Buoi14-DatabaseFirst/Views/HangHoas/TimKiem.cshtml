@@ -1,0 +1,38 @@
+﻿@using Buoi14_DatabaseFirst.Models.MyModels
+
+@model IEnumerable<TimKiemHangHoa>;
+@{
+    ViewData["Title"] = "TimKiem";
+}
+
+<h1>TimKiem</h1>
+
+<form asp-action="TimKiem">
+    Cần Tìm: <input type="text" name="Keyword" value="" placeholder="Nhập tên hàng hóa" />
+    Giá Từ: <input type="number" name="GiaTu" value="" min="0" />
+    Giá Đến: <input type="number" name="GiaDen" value="" min="0" />
+    <button type="submit">OK</button>
+</form>
+
+@if (Model != null)
+{
+    <div>có @Model.Count() hàng hóa</div>
+    <table>
+        <tr>
+            <th>Mã</th>
+            <th>Tên Hàng Hóa</th>
+            <th>Hình</th>
+            <th>Đơn Giá</th>
+        </tr>
+        @foreach (var p in Model)
+        {
+            <tr>
+                <td>@p.MaHh</td>
+                <td>@p.TenHh</td>
+                <td><img src="~/Hinh/hangHoa/@p.Hinh" alt="Alternate Text" /></td>
+                <td>@p.DonGia.ToString("#,##0") đ</td>
+
+            </tr>
+        }
+    </table>
+}
