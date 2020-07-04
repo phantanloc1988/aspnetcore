@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    aaaaaaaaaa
+    <div id="Time"></div>
+
+    <script>
+        $(function () {
+            function layGio() {
+                $.ajax({
+                    url: "Ajax/ServerTime",
+                    success: function (res) {
+                        $('#Time').html(res);
+                    }
+                });
+            }
+            layGio();
+        });
+    </script>
+</body>
+</html>

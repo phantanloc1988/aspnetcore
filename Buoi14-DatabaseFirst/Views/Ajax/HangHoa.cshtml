@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewData["Title"] = "HangHoa";
+}
+
+<h1>HangHoa</h1>
+
+<input id="txtSearch" placeholder="nhập từ khóa" />
+<div id="Result"></div>
+
+@section Scripts{
+    <script>
+        $("#txtSearch").keyup(function () {
+            $.ajax({
+                url: "/Ajax/Search",
+                data: { "Keyword": $(this).val().trim().toLowerCase()},
+                success: function (data) {
+                    $("#Result").html(data);
+                },
+                error: function (xhr) {
+                    alert("lỗi");
+                    console.log(xhr);
+                }
+            });
+        });
+    </script>
+}

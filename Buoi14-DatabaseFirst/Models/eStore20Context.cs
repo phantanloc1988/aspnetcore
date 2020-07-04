@@ -1,4 +1,5 @@
 ﻿using System;
+using Buoi14_DatabaseFirst.Models.MyModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -29,6 +30,8 @@ namespace Buoi14_DatabaseFirst.Models
         public virtual DbSet<NhaCungCap> NhaCungCap { get; set; }
         public virtual DbSet<NhanVien> NhanVien { get; set; }
         public virtual DbSet<YeuThich> YeuThich { get; set; }
+         
+        public DbQuery<ChiTietHoaDonView> ChiTietHoaDonView { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -442,6 +445,8 @@ namespace Buoi14_DatabaseFirst.Models
                     .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_Favorites_Customers");
             });
+
+            modelBuilder.Query<ChiTietHoaDonView>().ToView("ChiTietHoaDonView");
 
             OnModelCreatingPartial(modelBuilder);
         }
