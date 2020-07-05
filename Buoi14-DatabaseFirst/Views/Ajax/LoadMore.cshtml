@@ -1,0 +1,11 @@
+﻿@model IEnumerable<Buoi14_DatabaseFirst.Models.MyModels.TimKiemHangHoa>
+
+    <link href="~/css/HangHoa.css" rel="stylesheet" />
+@foreach (var hh in Model)
+{
+    <div class="hh-box">
+        <img class="hh-img" src="~/Hinh/HangHoa/@hh.Hinh" />
+        <h2>@hh.TenHh</h2>
+        <h3>@hh.GiaBan.ToString("#,##0")đ</h3>
+    </div>
+}

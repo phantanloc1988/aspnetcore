@@ -1,0 +1,11 @@
+﻿@using Microsoft.AspNetCore.Http;
+@using Buoi14_DatabaseFirst.Helpers
+@{
+    ViewData["Title"] = "Index";
+    var loai = Context.Session.GetSession<Loai>("loai");
+}
+
+<h1>Index</h1>
+
+<div>năm: @Context.Session.GetInt32("NamThanhLap")</div>
+<div>tên: @Context.Session.GetString("Ten")</div>

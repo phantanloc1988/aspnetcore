@@ -1,0 +1,67 @@
+﻿
+@{
+    ViewData["Title"] = "JsonSearch";
+}
+
+<h2>Tìm kiếm hàng hóa</h2>
+<div>Theo tên <input type="text" id="txtTen" placeholder="Nhập tên" /></div>
+<div>
+    Giá từ <input type="number" min="0" id="txtGiaTu" />
+    đến <input type="number" min="0" id="txtGiaDen" />
+    <input type="submit" id="btnTim" value="Tìm" />
+</div>
+<h2>Kết quả</h2>
+<table class="table table-condensed">
+    <thead>
+        <tr>
+            <th>STT</th>
+            <th>Hinh</th>
+            <th>Tên hàng hóa</th>
+            <th>Đơn giá</th>
+            <th>Loại</th>
+        </tr>
+    </thead>
+    <tbody id="content"></tbody>
+</table>
+
+@section Scripts{
+    <script>
+        $(function () {
+
+            $("#btnTim").click(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: "/TimKiem/JsonSearch",
+                    type: "Post",
+                    data: {
+                        TenHh: $("#txtTen").val(),
+                        GiaTu: $("#txtGiaTu").val(),
+                        GiaDen: $("#txtGiaDen").val()
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        //console.log(data);
+
+                        $("#content").html("");
+                        //duyệt qua từng phần tử của tập kết quả
+                        $(data).each(function (index, value) {
+                            //tạo thẻ tr
+                            var tr = $("<tr />");
+                            //tạo nội dung cho thẻ tr
+                            $("<td/>").html(index + 1).appendTo(tr);
+                            $("<td/>").html("<img src='Hinh/HangHoa/" + value.Hinh + "' height='80'/>").appendTo(tr);
+                            $("<td/>").html(value.TenHH).appendTo(tr);
+                            $("<td/>").html(value.DonGia).appendTo(tr);
+                            $("<td/>").html(value.TenLoai).appendTo(tr);
+                            //thêm vào tbody
+                            tr.appendTo("#content");
+                        });
+                    }
+                });
+            });
+
+        });
+
+
+    </script>
+}

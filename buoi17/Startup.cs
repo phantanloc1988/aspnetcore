@@ -2,15 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Buoi14_DatabaseFirst.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Buoi14_DatabaseFirst
+namespace buoi17
 {
     public class Startup
     {
@@ -25,14 +23,6 @@ namespace Buoi14_DatabaseFirst
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-
-            var chuoiketnoi = Configuration.GetConnectionString("eStoreDB");
-            services.AddDbContext<eStore20Context>(option => option.UseSqlServer(chuoiketnoi));
-
-            services.AddSession(option =>
-            {
-                option.IdleTimeout = TimeSpan.FromMinutes(1);
-            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,8 +36,6 @@ namespace Buoi14_DatabaseFirst
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-            app.UseSession();
-
             app.UseStaticFiles();
 
             app.UseRouting();

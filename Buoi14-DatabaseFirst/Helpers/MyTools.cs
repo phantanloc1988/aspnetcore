@@ -9,6 +9,20 @@ namespace Buoi14_DatabaseFirst.Helpers
 {
     public class MyTools
     {
+
+        public static string ImageToBase64(string fileName,string folder)
+        {
+            var fullpath = Path.Combine(FullPathFolderImage, folder, fileName);
+
+            if (File.Exists(fullpath))
+            {
+                byte[] data = File.ReadAllBytes(fullpath);
+                return Convert.ToBase64String(data);
+                
+            }
+            return null;
+        }
+
         public static string FullPathFolderImage = Path.Combine(Directory.GetCurrentDirectory(),"wwwroot" ,"Hinh");
 
         public static string NoImage = "~/Hinh/No-Image.jpg";
