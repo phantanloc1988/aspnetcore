@@ -1,6 +1,8 @@
 ﻿using buoi_20.ViewModels;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,6 +11,18 @@ namespace buoi_20.Helpers
 {
     public class MyTools
     {
+        public static string ProcessUpoadHinh(IFormFile hinh, string folder)
+        {
+            string fileName = string.Empty;
+            var fname = Path.Combine(FullPathFolderImage, folder, hinh.FileName);
+            using (var file = new FileStream(fname, FileMode.Create))
+            {
+                hinh.CopyTo(file);
+                fileName = hinh.FileName;
+            }
+            return fileName;
+        }
+
         public static string ImageToBase64(string fileName, string folder)
         {
             var fullPath = Path.Combine(FullPathFolderImage, folder, fileName);

@@ -6,6 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using buoi_20.DataModels;
+using System.IO;
+using OfficeOpenXml;
+using System.ComponentModel;
+using LicenseContext = OfficeOpenXml.LicenseContext;
+using Microsoft.AspNetCore.Http;
+using buoi_20.ViewModels;
 
 namespace buoi_20.Areas.Admin.Controllers
 {
@@ -49,6 +55,8 @@ namespace buoi_20.Areas.Admin.Controllers
         public IActionResult Create()
         {
             ViewData["MaLoaiCha"] = new SelectList(_context.Loais, "MaLoai", "TenLoai");
+
+            ViewBag.DataLoai = new LoaiDropdownVM { Data = _context.Loais.ToList() };
             return View();
         }
 
@@ -158,6 +166,104 @@ namespace buoi_20.Areas.Admin.Controllers
         private bool LoaiExists(int id)
         {
             return _context.Loais.Any(e => e.MaLoai == id);
+        }
+
+
+
+        public IActionResult ImportExcel()
+        {
+
+            return View();
+        }
+        
+
+        [HttpPost]
+        public IActionResult ImportExcel(IFormFile file)
+        {
+           
+            if (file==null|| file.Length <=0)
+            {
+                return View();
+            }
+            //Đọc File trả ra list
+            var dsLoai = new List<Loai>();
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            using (var memoryStream = new MemoryStream()) //Lưu tạm
+            {
+                file.CopyTo(memoryStream);
+
+                using (var excel = new ExcelPackage())
+                {
+                    var sheet1 = excel.Workbook.Worksheets["Loai"];
+                    int rowCount = sheet1.Dimension.Rows;
+
+                    for (int i = 2; i < rowCount; i++)
+                    {
+                        var loaiTemp = new Loai
+                        {
+                            MaLoai = int.Parse(sheet1.Cells[i, 1].Value.ToString()),
+                            TenLoai = sheet1.Cells[i,2].Value.ToString(),
+                        };
+                        if (int.TryParse(sheet1.Cells[i,3].Value.ToString(),out int maloaiCha))
+                        {
+                            loaiTemp.MaLoaiCha = maloaiCha;
+                        }
+
+                        dsLoai.Add(loaiTemp);
+                    }
+                }
+            };
+
+            // Xử lý data
+            foreach (var loai in dsLoai)
+            {
+                // dựa vào tên tìm xem loại có chưa
+                var loaidb = _context.Loais.SingleOrDefault(p => p.TenLoai == p.TenLoai);
+                //nếu có, update
+                if (loaidb!=null)
+                {
+
+                }
+                //nếu chưa, tạo mới
+                else
+                {
+
+                }
+            }
+
+            return View();
+        }
+
+        public IActionResult ExportExcel()
+        {
+            var dataLoai = _context.Loais.ToList();
+
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+            //File Stream Giữ data
+            var stream = new MemoryStream();
+            
+            using (var package = new ExcelPackage())
+            {
+                //tạo workbook và Sheet trong Excel
+                var sheet1 = package.Workbook.Worksheets.Add("Loai");
+                var sheet2 = package.Workbook.Worksheets.Add("Demo");
+                // đổ data vào Sheet;
+                sheet1.Cells.LoadFromCollection(dataLoai, true);//true là cho dong đậu tiên là tiêu đề
+
+                Random rd = new Random();
+                sheet2.Cells[1, 1].Value = "Danh sách loại";
+                sheet2.Cells[1, 2].Value = rd.Next(); //B1
+                sheet2.Cells[1, 3].Value = rd.Next();//C1
+                sheet2.Cells[1, 4].Formula = "B1+C1";
+
+
+                package.Save();
+            }
+            stream.Position = 0;
+
+            var fileName = $"DSLoai_{DateTime.Now:dd/mm/yyyy HHmmss}.xlxs";
+                return File(stream,"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",fileName);
         }
     }
 }

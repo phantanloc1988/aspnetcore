@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using buoi_20.DataModels;
+using buoi_20.Helpers;
+using Microsoft.AspNetCore.Http;
 
 namespace buoi_20.Areas.Admin.Controllers
 {
@@ -57,10 +59,16 @@ namespace buoi_20.Areas.Admin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,MaHH,TenHH,SoLuong,DonGia,MoTa,Hinh,GiamGia,MaLoai")] HangHoa hangHoa)
+        public async Task<IActionResult> Create([Bind("Id,MaHH,TenHH,SoLuong,DonGia,MoTa,Hinh,GiamGia,MaLoai")] HangHoa hangHoa,IFormFile Hinh)
         {
             if (ModelState.IsValid)
             {
+                if (Hinh!=null)
+                {
+                    hangHoa.Hinh =  MyTools.ProcessUpoadHinh(Hinh,"HangHoa");
+                }
+                
+
                 hangHoa.Id = Guid.NewGuid();
                 _context.Add(hangHoa);
                 await _context.SaveChangesAsync();
@@ -104,7 +112,7 @@ namespace buoi_20.Areas.Admin.Controllers
                 try
                 {
                     _context.Update(hangHoa);
-                    await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync();  
                 }
                 catch (DbUpdateConcurrencyException)
                 {

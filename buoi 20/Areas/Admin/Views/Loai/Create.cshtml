@@ -10,6 +10,11 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
+        <div>
+            <a asp-action="ImportExcel">Nhập File</a>
+            <a asp-action="ExportExcel" asp-area="Admin" asp-controller="Loai">Xuất File</a>
+        </div>
+
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -20,15 +25,13 @@
             <div class="form-group">
                 <label asp-for="MaLoaiCha" class="control-label"></label>
                 @*<select asp-for="MaLoaiCha" class ="form-control" asp-items="ViewBag.MaLoaiCha">
-                    <option>---Chọn Cha---</option>
-                </select>*@
-            <select>
-                <option value="value">---Không chọn cha---</option>
-                @{ 
-                    var dataLoai = ViewBag.MaLoaiCha as SelectList;
+                        <option>---Không Chọn Cha---</option>
+                    </select>*@
 
+                @{
+                    var selectLoai = ViewBag.DataLoai as buoi_20.ViewModels.LoaiDropdownVM;
                 }
-            </select>
+                @await Html.PartialAsync("LoaiDropDown", selectLoai)
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
